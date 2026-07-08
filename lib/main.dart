@@ -9,11 +9,10 @@ Future<void> main() async {
 
   await dotenv.load(fileName: '.env');
 
-  await Supabase.initialize(
-    url: Env.supabaseUrl,
-    anonKey: Env.supabasePublishableKey,
-  );
-
+await Supabase.initialize(
+  url: Env.supabaseUrl,
+  publishableKey: Env.supabasePublishableKey,
+);
   runApp(const MyApp());
 }
 
