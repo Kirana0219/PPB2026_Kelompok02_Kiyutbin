@@ -38,7 +38,11 @@ class _AuthGateState extends State<AuthGate> {
       stream: Database.client.auth.onAuthStateChange,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SplashScreen();
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         }
 
         final session = Database.client.auth.currentSession;
@@ -53,7 +57,11 @@ class _AuthGateState extends State<AuthGate> {
           future: _profileFutureFor(session.user.id),
           builder: (context, profileSnapshot) {
             if (profileSnapshot.connectionState == ConnectionState.waiting) {
-              return const SplashScreen();
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
             }
 
             if (profileSnapshot.hasError) {
