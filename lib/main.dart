@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:kiyutbin_mobile/features/splash/screen/splash_screen.dart';
+import 'package:kiyutbin_mobile/features/splash/screen/auth_gate.dart';
 import 'core/theme/app_theme.dart';
 
 import 'core/config/env.dart';
