@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:kiyutbin_mobile/features/auth/splash/screen/splash_screen.dart';
+import 'core/theme/app_theme.dart';
 
 import 'core/config/env.dart';
 
@@ -24,11 +26,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Kiyutbin',
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hi, Kirana! Semangat!'),
-        ),
-      ),
+      theme: AppTheme.lightTheme,
+      home: const SplashScreen(),
     );
   }
 }
