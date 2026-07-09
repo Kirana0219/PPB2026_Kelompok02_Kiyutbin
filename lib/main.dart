@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Kiyutbin',
       theme: AppTheme.lightTheme,
-      home: const SplashScreen(),
+      home: const AuthGate(),
     );
   }
 }

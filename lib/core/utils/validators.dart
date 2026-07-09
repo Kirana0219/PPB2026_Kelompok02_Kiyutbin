@@ -37,12 +37,13 @@ class Validators {
 
   static String? phone(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Nomor HP wajib diisi";
+      return null;
     }
 
+    final digitsOnly = value.replaceAll(RegExp(r'\D'), '');
     final regex = RegExp(r'^[0-9]{10,15}$');
 
-    if (!regex.hasMatch(value)) {
+    if (!regex.hasMatch(digitsOnly)) {
       return "Nomor HP tidak valid";
     }
 
