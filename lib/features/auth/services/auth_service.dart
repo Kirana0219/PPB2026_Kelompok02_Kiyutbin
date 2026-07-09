@@ -16,55 +16,35 @@ class AuthService {
   // REGISTER
   // ==========================
 
-  Future<AuthResponse> signUp({
-    required String fullName,
-    required String email,
-    required String password,
-    String? phone,
-  }) async {
+Future<AuthResponse> signUp({
+  required String fullName,
+  required String email,
+  required String password,
+  String? phone,
+}) async {
+  try {
     final response = await _supabase.auth.signUp(
       email: email,
       password: password,
+      data: {
+        'full_name': fullName,
+        'phone': phone,
+      },
     );
 
-    final session = response.session;
-    final user = response.user;
-
-    if (user == null) {
-      throw Exception('User gagal dibuat.');
-    }
-
-    // Jika confirm email aktif maka session null
-    // Flutter tidak bisa membuat profile sekarang.
-    if (session == null) {
-      return response;
-    }
-
-    // Ambil user yang benar-benar sudah login
-    final authUser = _supabase.auth.currentUser;
-
-    if (authUser == null) {
-      throw Exception("Session tidak ditemukan.");
-    }
-
-    // Cek apakah profile sudah ada
-    final existing = await _supabase
-        .from('profiles')
-        .select('id')
-        .eq('id', authUser.id)
-        .maybeSingle();
-
-    if (existing == null) {
-      await _supabase.from('profiles').insert({
-        'id': authUser.id,
-        'full_name': fullName,
-        'email': email,
-        'phone': phone,
-      });
+    if (response.user == null) {
+      throw Exception('Gagal membuat akun.');
     }
 
     return response;
+  } on AuthException catch (e) {
+    throw Exception(e.message);
+  } on PostgrestException catch (e) {
+    throw Exception(e.message);
+  } catch (e) {
+    throw Exception(e.toString());
   }
+}
 
   // ==========================
   // LOGIN
