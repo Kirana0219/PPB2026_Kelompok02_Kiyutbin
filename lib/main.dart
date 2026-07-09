@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'Kiyutbin',
       home: const Scaffold(
         body: Center(
-          child: Text('Hello World'),
+          child: Text('Hi, Kirana! Semangat!'),
         ),
       ),
     );
