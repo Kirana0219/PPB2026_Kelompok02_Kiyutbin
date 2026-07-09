@@ -1,21 +1,70 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-
 import 'package:kiyutbin_mobile/core/theme/app_colors.dart';
-import 'package:kiyutbin_mobile/core/theme/app_text_styles.dart';
+import 'package:kiyutbin_mobile/features/splash/screen/auth_gate.dart';
 
-/// Splash screen minimal — cuma tulisan "KIYUTBIN" di tengah layar.
-/// Tampil selagi [AuthGate] masih mengecek session Supabase.
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(const Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const AuthGate(),
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Center(
-        child: Text(
-          'KIYUTBIN',
-          style: AppTextStyles.logo.copyWith(fontSize: 26),
+      backgroundColor: AppColors.primary,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Center(
+              child: Image.asset(
+                'assets/images/BRAND_ICON_WHITE.png',
+                width: 150,
+              ),
+            ),
+
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 50,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'From',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  Image.asset(
+                    'assets/images/BRAND_NAME_WHITE.png',
+                    width: 170,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
