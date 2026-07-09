@@ -23,13 +23,13 @@ class AuthModel {
 
   factory AuthModel.fromJson(Map<String, dynamic> json) {
     return AuthModel(
-      id: json['id'] as String,
-      roleId: json['role_id'] as int?,
-      fullName: json['full_name'] as String,
-      email: json['email'] as String,
-      phone: json['phone'] as String?,
-      photoUrl: json['photo_url'] as String?,
-      isActive: json['is_active'] as bool? ?? true,
+      id: json['id'],
+      roleId: json['role_id'],
+      fullName: json['full_name'],
+      email: json['email'],
+      phone: json['phone'],
+      photoUrl: json['photo_url'],
+      isActive: json['is_active'] ?? true,
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
           : null,

@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/config/env.dart';
+import 'package:kiyutbin_mobile/core/theme/app_theme.dart';
+import 'package:kiyutbin_mobile/features/splash/screen/auth_gate.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,17 +20,18 @@ await Supabase.initialize(
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+ 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Kiyutbin',
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hi, Kirana! Semangat!'),
-        ),
-      ),
+      theme: AppTheme.lightTheme,
+      // AuthGate yang menentukan halaman pertama yang tampil:
+      // - masih cek session   -> SplashScreen ("KIYUTBIN")
+      // - ada session         -> Home (TODO: isi di auth_gate.dart)
+      // - tidak ada session   -> LoginScreen
+      home: const AuthGate(),
     );
   }
 }
