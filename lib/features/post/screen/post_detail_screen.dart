@@ -29,6 +29,26 @@ class PostDetailScreen extends StatelessWidget {
                     width: double.infinity,
                     height: 220,
                     fit: BoxFit.cover,
+
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+
+                      return SizedBox(
+                        height: 220,
+                        width: double.infinity,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        ),
+                      );
+                    },
+
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
                         height: 220,
