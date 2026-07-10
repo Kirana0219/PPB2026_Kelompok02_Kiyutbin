@@ -1,4 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Permission Camera -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <!-- Permission Flash -->
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+
+    <!-- Android 13+ -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
+    <!-- Android 12 ke bawah -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    
     <application
         android:label="kiyutbin_mobile"
         android:name="${applicationName}"

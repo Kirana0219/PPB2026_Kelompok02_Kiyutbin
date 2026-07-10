@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kiyutbin_mobile/core/layout/widgets/app_bottom.dart';
 import 'package:kiyutbin_mobile/core/layout/widgets/app_header.dart';
 import 'package:kiyutbin_mobile/features/auth/models/auth_model.dart';
+import 'package:kiyutbin_mobile/core/routes/app_router.dart';
 import 'package:kiyutbin_mobile/features/events/screens/events_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,8 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppHeader(
-        showBackButton: false, // Home tidak perlu tombol back
-        profileImage: 'assets/images/profile.png', // opsional
+        showBackButton: false,
+        profileImage: 'assets/images/profile.png',
         onNotification: () {
           // TODO: buka halaman notifikasi
         },
@@ -48,6 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             currentIndex = index;
           });
+
+          // TODO: navigasi footer
         },
       ),
     );
