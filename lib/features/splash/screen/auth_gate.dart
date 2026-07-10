@@ -6,8 +6,6 @@ import 'package:kiyutbin_mobile/features/auth/models/auth_model.dart';
 import 'package:kiyutbin_mobile/features/auth/screen/login_screen.dart';
 import 'package:kiyutbin_mobile/features/auth/services/auth_service.dart';
 
-import 'splash_screen.dart';
-
 // TODO: sesuaikan import Home screen kamu di bawah kalau sudah dibuat
 // import 'package:kiyutbin_mobile/features/home/screen/home_screen.dart';
 
