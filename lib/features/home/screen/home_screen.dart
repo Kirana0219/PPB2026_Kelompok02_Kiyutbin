@@ -6,10 +6,7 @@ import 'package:kiyutbin_mobile/features/post/screen/post_screen.dart';
 import 'package:kiyutbin_mobile/core/routes/app_router.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    super.key,
-    required this.profile,
-  });
+  const HomeScreen({super.key, required this.profile});
 
   final AuthModel profile;
 
@@ -34,11 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-      body: Center(
-        child: Text(
-          'Halo ${widget.profile.fullName}',
-        ),
-      ),
+      body: Center(child: Text('Halo ${widget.profile.fullName}')),
 
       bottomNavigationBar: AppFooter(
         currentIndex: currentIndex,
@@ -50,35 +43,28 @@ class _HomeScreenState extends State<HomeScreen> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (_) => const PostScreen(),
-              ),
+              MaterialPageRoute(builder: (_) => const PostScreen()),
             );
-          switch (index) {
-            case 0:
-              break;
+            switch (index) {
+              case 0:
+                break;
 
-            case 1:
-              // Event
-              break;
+              case 1:
+                // Event
+                break;
 
-            case 2:
-              Navigator.pushNamed(
-                context,
-                AppRouter.scanner,
-              );
-              break;
+              case 2:
+                Navigator.pushNamed(context, AppRouter.scanner);
+                break;
 
-            case 3:
-              Navigator.pushNamed(
-                context,
-                AppRouter.blog,
-              );
-              break;
+              case 3:
+                Navigator.pushNamed(context, AppRouter.blog);
+                break;
 
-            case 4:
-              // Profile
-              break;
+              case 4:
+                // Profile
+                break;
+            }
           }
         },
       ),
