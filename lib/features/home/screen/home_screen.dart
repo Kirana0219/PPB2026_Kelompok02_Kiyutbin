@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kiyutbin_mobile/core/layout/widgets/app_bottom.dart';
 import 'package:kiyutbin_mobile/core/layout/widgets/app_header.dart';
 import 'package:kiyutbin_mobile/features/auth/models/auth_model.dart';
+import 'package:kiyutbin_mobile/features/post/screen/post_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -45,7 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
             currentIndex = index;
           });
 
-          // TODO: navigasi footer
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const PostScreen(),
+              ),
+            );
+          }
         },
       ),
     );
