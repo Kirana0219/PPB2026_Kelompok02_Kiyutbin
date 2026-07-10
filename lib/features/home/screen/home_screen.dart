@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:kiyutbin_mobile/core/layout/widgets/app_bottom.dart';
 import 'package:kiyutbin_mobile/core/layout/widgets/app_header.dart';
 import 'package:kiyutbin_mobile/features/auth/models/auth_model.dart';
+import 'package:kiyutbin_mobile/features/events/screens/events_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    super.key,
-    required this.profile,
-  });
+  const HomeScreen({super.key, required this.profile});
 
   final AuthModel profile;
 
@@ -32,20 +30,24 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-      body: Center(
-        child: Text(
-          'Halo ${widget.profile.fullName}',
-        ),
-      ),
+      body: Center(child: Text('Halo ${widget.profile.fullName}')),
 
       bottomNavigationBar: AppFooter(
         currentIndex: currentIndex,
         onTap: (index) {
+          if (index == 1) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (_) => EventScreen(profile: widget.profile),
+              ),
+            );
+            return;
+          }
+
           setState(() {
             currentIndex = index;
           });
-
-          // TODO: navigasi footer
         },
       ),
     );
