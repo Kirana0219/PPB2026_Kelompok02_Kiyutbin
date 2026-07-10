@@ -90,18 +90,47 @@ class _PostScreenState extends State<PostScreen> {
                   );
                 }
 
+                // Retry Error State jika gagal memuat data
                 if (snapshot.hasError) {
                   return RefreshIndicator(
                     onRefresh: _handleRefresh,
                     child: ListView(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      children: const [
-                        SizedBox(height: 100),
-                        Center(
-                          child: Text(
-                            "Gagal memuat artikel",
-                            style: TextStyle(
-                              fontSize: 16,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.error_outline,
+                                  size: 70,
+                                  color: Colors.redAccent,
+                                ),
+                                const SizedBox(height: 16),
+                                const Text(
+                                  "Gagal memuat artikel",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                const Text(
+                                  "Periksa koneksi internet atau coba lagi.",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 16),
+                                ElevatedButton(
+                                  onPressed: _handleRefresh,
+                                  child: const Text("Coba Lagi"),
+                                ),
+                              ],
                             ),
                           ),
                         ),
