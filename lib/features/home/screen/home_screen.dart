@@ -36,15 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: AppFooter(
         currentIndex: currentIndex,
         onTap: (index) {
-          if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (_) => EventScreen(profile: widget.profile),
-              ),
-            );
-            return;
-          }
 
           setState(() {
             currentIndex = index;
@@ -59,7 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
               break;
 
             case 1:
-              // Event
+              Navigator.pushNamed(
+                context,
+                AppRouter.events,
+              );
               break;
 
             case 2:

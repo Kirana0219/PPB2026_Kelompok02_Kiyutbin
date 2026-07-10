@@ -416,7 +416,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.9.1"
-<<<<<<< HEAD
   image_picker:
     dependency: "direct main"
     description:
@@ -481,23 +480,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.2"
-=======
->>>>>>> 6a8d3ee9dda8d34cf8ae2d67ba62db908af74864
   intl:
     dependency: "direct main"
     description:
       name: intl
-<<<<<<< HEAD
       sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
       url: "https://pub.dev"
     source: hosted
     version: "0.18.1"
-=======
-      sha256: "1ca20c894b1717686a2319b8548763d812bc0aabdac580420a44c5178c57a867"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.20.3"
->>>>>>> 6a8d3ee9dda8d34cf8ae2d67ba62db908af74864
   jni:
     dependency: transitive
     description:

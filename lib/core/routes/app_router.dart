@@ -18,6 +18,9 @@ import '../../features/blog/screen/blog_detail_screen.dart';
 import '../../features/blog/screen/create_blog_screen.dart';
 import '../../features/blog/screen/my_story_screen.dart';
 
+//event
+import '../../features/events/screens/events_screen.dart';
+
 class AppRouter {
   AppRouter._();
 
@@ -32,6 +35,7 @@ class AppRouter {
   static const String blogDetail = '/blog/detail';
   static const createBlog = "/create-blog";
   static const String myStories = '/blog/my-stories';
+  static const String events= '/events';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -89,6 +93,10 @@ class AppRouter {
           builder: (_) => const MyStoryScreen(),
         );
 
+      case AppRouter.events:
+        return MaterialPageRoute(
+          builder: (_) => const EventScreen()
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => const LoginScreen(),

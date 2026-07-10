@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:kiyutbin_mobile/core/layout/widgets/app_bottom.dart';
-import 'package:kiyutbin_mobile/features/auth/models/auth_model.dart';
-import 'package:kiyutbin_mobile/features/home/screen/home_screen.dart';
+import 'package:kiyutbin_mobile/core/layout/widgets/app_header.dart';
+import 'package:kiyutbin_mobile/core/routes/app_router.dart';
+import 'package:kiyutbin_mobile/features/events/widgets/calendar_section.dart';
+import 'package:kiyutbin_mobile/features/events/widgets/other_event_section.dart';
 import 'package:kiyutbin_mobile/features/events/widgets/registered_events_section.dart';
 import 'package:kiyutbin_mobile/features/events/widgets/todays_event_section.dart';
-import 'package:kiyutbin_mobile/features/events/widgets/other_event_section.dart';
-
-import '../widgets/calendar_section.dart';
 
 class EventScreen extends StatefulWidget {
-  const EventScreen({super.key, required this.profile});
-
-  final AuthModel profile;
+  const EventScreen({super.key});
 
   @override
   State<EventScreen> createState() => _EventScreenState();
@@ -19,28 +17,63 @@ class EventScreen extends StatefulWidget {
 
 class _EventScreenState extends State<EventScreen> {
   DateTime selectedDate = DateTime.now();
-  int currentIndex = 1;
+
+  void _onBottomNavigationTap(int index) {
+    if (index == 1) return;
+
+    switch (index) {
+      case 0:
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRouter.home,
+          (_) => false,
+        );
+        break;
+
+      case 2:
+        Navigator.pushNamed(
+          context,
+          AppRouter.scanner,
+        );
+        break;
+
+      case 3:
+        Navigator.pushNamed(
+          context,
+          AppRouter.blog,
+        );
+        break;
+
+      case 4:
+        Navigator.pushNamed(
+          context,
+          AppRouter.profile,
+        );
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
 
-      appBar: AppBar(
-        title: const Text("Events"),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
+      appBar: AppHeader(
+        showBackButton: false,
+        onNotification: () {
+          // TODO: Notification
+        },
+        onProfile: () {
+          Navigator.pushNamed(context, AppRouter.profile);
+        },
       ),
 
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
-
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// SECTION 1
               CalendarSection(
                 selectedDate: selectedDate,
                 onDateSelected: (date) {
@@ -50,22 +83,15 @@ class _EventScreenState extends State<EventScreen> {
                 },
               ),
 
-              /// SECTION 2
               const SizedBox(height: 24),
 
               const RegisteredEventsSection(),
 
-              const SizedBox(height: 24),
-
               const SizedBox(height: 30),
-
-              /// SECTION 3
 
               const TodaysEventsSection(),
 
               const SizedBox(height: 24),
-
-              /// SECTION 4
 
               const OtherEventsSection(),
 
@@ -76,36 +102,9 @@ class _EventScreenState extends State<EventScreen> {
       ),
 
       bottomNavigationBar: AppFooter(
-        currentIndex: currentIndex,
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => HomeScreen(profile: widget.profile),
-                ),
-              );
-              break;
-
-            case 1:
-              break;
-
-            case 2:
-              // TODO Scan
-              break;
-
-            case 3:
-              // TODO Blog
-              break;
-
-            case 4:
-              // TODO Profile
-              break;
-          }
-        },
+        currentIndex: 1,
+        onTap: _onBottomNavigationTap,
       ),
     );
   }
 }
-
