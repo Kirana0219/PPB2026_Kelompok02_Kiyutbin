@@ -53,10 +53,33 @@ class _PostScreenState extends State<PostScreen> {
             itemBuilder: (context, index) {
               final post = posts[index];
 
-              return ListTile(
-                title: Text(post.title),
-                subtitle: Text(post.content),
-              );
+              return Card(
+  margin: const EdgeInsets.symmetric(
+    horizontal: 16,
+    vertical: 8,
+  ),
+  child: Padding(
+    padding: const EdgeInsets.all(12),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          post.title,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          post.content,
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
+    ),
+  ),
+);
             },
           );
         },
