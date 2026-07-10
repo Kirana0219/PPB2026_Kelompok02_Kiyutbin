@@ -62,7 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
               break;
 
             case 3:
-              // Blog
+              Navigator.pushNamed(
+                context,
+                AppRouter.blog,
+              );
               break;
 
             case 4:

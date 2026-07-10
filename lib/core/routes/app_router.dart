@@ -11,6 +11,12 @@ import '../../features/auth/screen/register_screen.dart';
 // Scanner
 import '../../features/qr_scanner/screen/scanner_screen.dart';
 
+//blog
+import '../../features/blog/screen/blog_screen.dart';
+import '../../features/blog/screen/blog_detail_screen.dart';
+import '../../features/blog/screen/create_blog_screen.dart';
+import '../../features/blog/screen/my_story_screen.dart';
+
 class AppRouter {
   AppRouter._();
 
@@ -20,6 +26,10 @@ class AppRouter {
   static const String register = '/register';
   static const String home = '/home';
   static const String scanner = '/scanner';
+  static const String blog = '/blog';
+  static const String blogDetail = '/blog/detail';
+  static const createBlog = "/create-blog";
+  static const String myStories = '/blog/my-stories';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -46,6 +56,30 @@ class AppRouter {
       case AppRouter.scanner:
         return MaterialPageRoute(
           builder: (_) => const ScannerScreen(),
+        );
+
+      case AppRouter.blog:
+        return MaterialPageRoute(
+          builder: (_) => const BlogScreen(),
+        );
+
+      case AppRouter.blogDetail:
+        final blogId = settings.arguments as String;
+
+        return MaterialPageRoute(
+          builder: (_) => BlogDetailScreen(
+            blogId: blogId,
+          ),
+        );
+
+      case AppRouter.createBlog:
+        return MaterialPageRoute(
+          builder: (_) => const CreateBlogScreen(),
+        );
+
+      case AppRouter.myStories:
+        return MaterialPageRoute(
+          builder: (_) => const MyStoryScreen(),
         );
 
       default:
