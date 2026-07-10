@@ -24,7 +24,8 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Blog"),
+        title: const Text("Artikel KIYUTBIN"),
+        centerTitle: true,
       ),
       body: FutureBuilder<List<PostModel>>(
         future: _posts,
@@ -36,14 +37,34 @@ class _PostScreenState extends State<PostScreen> {
           }
 
           if (snapshot.hasError) {
-            return Center(
-              child: Text(snapshot.error.toString()),
+            return const Center(
+              child: Text(
+                "Gagal memuat artikel",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
             );
           }
 
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
-              child: Text("Belum ada artikel"),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.article_outlined,
+                    size: 60,
+                  ),
+                  SizedBox(height: 12),
+                  Text(
+                    "Belum ada artikel",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
             );
           }
 
