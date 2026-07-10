@@ -86,11 +86,34 @@ class _BlogScreenState extends State<BlogScreen> {
     Navigator.pushNamed(context, AppRouter.blogDetail, arguments: blog.id);
   }
 
+  void _onBottomNavigationTap(int index) {
+    if (index == currentIndex) return;
+
+    switch (index) {
+      case 0:
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRouter.home,
+          (_) => false,
+        );
+        break;
+      case 2:
+        Navigator.pushNamed(context, AppRouter.scanner);
+        break;
+      case 1:
+      case 4:
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Halaman ini belum tersedia.')),
+        );
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const AppHeader(showBackButton: true),
+      appBar: const AppHeader(showBackButton: false),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(
@@ -162,7 +185,10 @@ class _BlogScreenState extends State<BlogScreen> {
                 ],
               ),
             ),
-      bottomNavigationBar: AppFooter(currentIndex: currentIndex, onTap: (_) {}),
+      bottomNavigationBar: AppFooter(
+        currentIndex: currentIndex,
+        onTap: _onBottomNavigationTap,
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,

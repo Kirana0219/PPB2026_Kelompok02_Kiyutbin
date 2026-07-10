@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:kiyutbin_mobile/core/layout/widgets/app_bottom.dart';
 import 'package:kiyutbin_mobile/core/layout/widgets/app_header.dart';
 import 'package:kiyutbin_mobile/features/auth/models/auth_model.dart';
-import 'package:kiyutbin_mobile/features/post/screen/post_screen.dart';
 import 'package:kiyutbin_mobile/core/routes/app_router.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.profile});
+  const HomeScreen({
+    super.key,
+    required this.profile,
+  });
 
   final AuthModel profile;
 
@@ -21,8 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppHeader(
-        showBackButton: false, // Home tidak perlu tombol back
-        profileImage: 'assets/images/profile.png', // opsional
+        showBackButton: false,
+        profileImage: 'assets/images/profile.png',
         onNotification: () {
           // TODO: buka halaman notifikasi
         },
@@ -31,7 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-      body: Center(child: Text('Halo ${widget.profile.fullName}')),
+      body: Center(
+        child: Text(
+          'Halo ${widget.profile.fullName}',
+        ),
+      ),
 
       bottomNavigationBar: AppFooter(
         currentIndex: currentIndex,
@@ -40,31 +46,37 @@ class _HomeScreenState extends State<HomeScreen> {
             currentIndex = index;
           });
 
-          if (index == 3) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const PostScreen()),
-            );
-            switch (index) {
-              case 0:
-                break;
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(
+                context,
+                AppRouter.home,
+              );
+              break;
 
-              case 1:
-                // Event
-                break;
+            case 1:
+              // Event
+              break;
 
-              case 2:
-                Navigator.pushNamed(context, AppRouter.scanner);
-                break;
+            case 2:
+              // Scanner
+              Navigator.pushNamed(
+                context,
+                AppRouter.scanner,
+              );
+              break;
 
-              case 3:
-                Navigator.pushNamed(context, AppRouter.blog);
-                break;
+            case 3:
+              // Blog
+              Navigator.pushNamed(
+                context,
+                AppRouter.blog,
+              );
+              break;
 
-              case 4:
-                // Profile
-                break;
-            }
+            case 4:
+              // Profile
+              break;
           }
         },
       ),
