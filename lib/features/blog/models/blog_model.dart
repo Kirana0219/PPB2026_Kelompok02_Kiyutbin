@@ -1,43 +1,72 @@
 class BlogModel {
   final String id;
+  final String userId;
+  final String categoryId;
   final String title;
   final String shortDescription;
   final String content;
   final String thumbnailUrl;
   final int readTime;
-  final DateTime publishedAt;
   final bool isTrending;
-  final String category;
-  final String author;
-  final String authorPhoto;
+  final DateTime publishedAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-  BlogModel({
+  // Relasi
+  final String authorName;
+  final String? authorPhoto;
+
+  final String categoryName;
+
+  const BlogModel({
     required this.id,
+    required this.userId,
+    required this.categoryId,
     required this.title,
     required this.shortDescription,
     required this.content,
     required this.thumbnailUrl,
     required this.readTime,
-    required this.publishedAt,
     required this.isTrending,
-    required this.category,
-    required this.author,
-    required this.authorPhoto,
+    required this.publishedAt,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.authorName,
+    this.authorPhoto,
+    required this.categoryName,
   });
 
   factory BlogModel.fromJson(Map<String, dynamic> json) {
     return BlogModel(
       id: json['id'],
+      userId: json['user_id'],
+      categoryId: json['category_id'],
       title: json['title'],
-      shortDescription: json['short_description'] ?? '',
+      shortDescription: json['short_description'],
       content: json['content'],
       thumbnailUrl: json['thumbnail_url'] ?? '',
       readTime: json['read_time'] ?? 0,
-      publishedAt: DateTime.parse(json['published_at']),
       isTrending: json['is_trending'] ?? false,
-      category: json['categories']['name'],
-      author: json['authors']['full_name'],
-      authorPhoto: json['authors']['photo_url'] ?? '',
+      publishedAt: DateTime.parse(json['published_at']),
+      createdAt: DateTime.parse(json['created_at']),
+      updatedAt: DateTime.parse(json['updated_at']),
+      authorName: json['profiles']['full_name'],
+      authorPhoto: json['profiles']['photo_url'],
+      categoryName: json['categories']['name'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'user_id': userId,
+      'category_id': categoryId,
+      'title': title,
+      'short_description': shortDescription,
+      'content': content,
+      'thumbnail_url': thumbnailUrl,
+      'read_time': readTime,
+      'is_trending': isTrending,
+      'published_at': publishedAt.toIso8601String(),
+    };
   }
 }
