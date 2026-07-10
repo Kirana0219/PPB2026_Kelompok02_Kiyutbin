@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kiyutbin_mobile/features/post/model/post_model.dart';
 import 'package:kiyutbin_mobile/features/post/services/post_service.dart';
+import 'package:kiyutbin_mobile/features/post/screen/post_detail_screen.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -53,62 +54,73 @@ class _PostScreenState extends State<PostScreen> {
             itemBuilder: (context, index) {
               final post = posts[index];
 
-              return Card(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (post.imageUrl.isNotEmpty)
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            post.imageUrl,
-                            height: 180,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const SizedBox();
-                            },
+              return InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => PostDetailScreen(post: post),
+                    ),
+                  );
+                },
+                child: Card(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (post.imageUrl.isNotEmpty)
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              post.imageUrl,
+                              height: 180,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const SizedBox();
+                              },
+                            ),
+                          ),
+
+                        const SizedBox(height: 12),
+
+                        Text(
+                          post.title,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
 
-                      const SizedBox(height: 12),
+                        const SizedBox(height: 8),
 
-                      Text(
-                        post.title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        Text(
+                          post.content,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
 
-                      const SizedBox(height: 8),
+                        const SizedBox(height: 10),
 
-                      Text(
-                        post.content,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      Text(
-                        "Dipublikasikan: ${post.createdAt.day}/${post.createdAt.month}/${post.createdAt.year}",
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
+                        Text(
+                          "Dipublikasikan: ${post.createdAt.day}/${post.createdAt.month}/${post.createdAt.year}",
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );
