@@ -24,12 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppHeader(
         showBackButton: false,
-        profileImage: 'assets/images/profile.png',
+        profileImageUrl: widget.profile.photoUrl,
         onNotification: () {
           // TODO: buka halaman notifikasi
         },
         onProfile: () {
-          // TODO: buka halaman profile
+          Navigator.pushNamed(context, AppRouter.profile);
         },
       ),
 
@@ -75,7 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
               break;
 
             case 4:
-              // Profile
+              Navigator.pushNamed(
+                context,
+                AppRouter.profile,
+              );
               break;
           }
         },

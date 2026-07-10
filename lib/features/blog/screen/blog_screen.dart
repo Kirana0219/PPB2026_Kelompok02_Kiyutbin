@@ -101,10 +101,12 @@ class _BlogScreenState extends State<BlogScreen> {
         Navigator.pushNamed(context, AppRouter.scanner);
         break;
       case 1:
-      case 4:
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Halaman ini belum tersedia.')),
         );
+        break;
+      case 4:
+        Navigator.pushNamed(context, AppRouter.profile);
         break;
     }
   }
@@ -113,7 +115,14 @@ class _BlogScreenState extends State<BlogScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const AppHeader(showBackButton: false),
+      appBar: AppHeader(
+        showBackButton: false,
+        profileImageUrl: null,
+        onNotification: () {},
+        onProfile: () {
+          Navigator.pushNamed(context, AppRouter.profile);
+        },
+      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(

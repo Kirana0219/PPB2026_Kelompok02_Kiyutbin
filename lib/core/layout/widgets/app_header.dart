@@ -7,9 +7,11 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
 
   final bool showBackButton;
   final bool showNotificationDot;
+  final bool showProfileAvatar;
 
   /// Path asset foto profile
   final String? profileImage;
+  final String? profileImageUrl;
 
   const AppHeader({
     super.key,
@@ -18,7 +20,9 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
     this.onProfile,
     this.showBackButton = true,
     this.showNotificationDot = true,
+    this.showProfileAvatar = true,
     this.profileImage,
+    this.profileImageUrl,
   });
 
   @override
@@ -110,43 +114,42 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
 
-                  const SizedBox(width: 4),
-
-                  // Avatar
-
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(100),
-                      onTap: onProfile,
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        padding: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: const Color(0xFF0D631B),
-                            width: 2,
+                  if (showProfileAvatar) ...[
+                    const SizedBox(width: 4),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(100),
+                        onTap: onProfile,
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: const Color(0xFF0D631B),
+                              width: 2,
+                            ),
                           ),
-                        ),
-                        child: ClipOval(
-                          child: profileImage != null
-                              ? Image.asset(
-                                  profileImage!,
-                                  fit: BoxFit.cover,
-                                )
-                              : const ColoredBox(
-                                  color: Color(0xFFF2F2F2),
-                                  child: Icon(
-                                    Icons.person,
-                                    color: Colors.grey,
-                                  ),
-                                ),
+                          child: ClipOval(
+                            child: profileImageUrl?.isNotEmpty == true
+                                ? Image.network(
+                                    profileImageUrl!,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (_, __, ___) => _avatarPlaceholder(),
+                                  )
+                                : profileImage != null
+                                    ? Image.asset(
+                                        profileImage!,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : _avatarPlaceholder(),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ],
               ),
             ],
@@ -158,4 +161,12 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(64);
+
+  Widget _avatarPlaceholder() => const ColoredBox(
+        color: Color(0xFFF2F2F2),
+        child: Icon(
+          Icons.person,
+          color: Colors.grey,
+        ),
+      );
 }

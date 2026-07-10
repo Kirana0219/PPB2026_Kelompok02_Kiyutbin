@@ -7,6 +7,7 @@ import '../../features/splash/screen/splash_screen.dart';
 // Auth
 import '../../features/auth/screen/login_screen.dart';
 import '../../features/auth/screen/register_screen.dart';
+import '../../features/auth/screen/profile_screen.dart';
 
 // Scanner
 import '../../features/qr_scanner/screen/scanner_screen.dart';
@@ -26,6 +27,7 @@ class AppRouter {
   static const String register = '/register';
   static const String home = '/home';
   static const String scanner = '/scanner';
+  static const String profile = '/profile';
   static const String blog = '/blog';
   static const String blogDetail = '/blog/detail';
   static const createBlog = "/create-blog";
@@ -56,6 +58,11 @@ class AppRouter {
       case AppRouter.scanner:
         return MaterialPageRoute(
           builder: (_) => const ScannerScreen(),
+        );
+
+      case AppRouter.profile:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileScreen(),
         );
 
       case AppRouter.blog:
