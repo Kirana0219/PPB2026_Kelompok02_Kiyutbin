@@ -110,29 +110,43 @@ class _PostScreenState extends State<PostScreen> {
                   );
                 }
 
+                // Jika data artikel kosong
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return RefreshIndicator(
                     onRefresh: _handleRefresh,
                     child: ListView(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      children: const [
-                        SizedBox(height: 100),
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.article_outlined,
-                                size: 60,
-                              ),
-                              SizedBox(height: 12),
-                              Text(
-                                "Belum ada artikel",
-                                style: TextStyle(
-                                  fontSize: 16,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          child: const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.article_outlined,
+                                  size: 70,
+                                  color: Colors.grey,
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 16),
+                                Text(
+                                  "Belum ada artikel",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  "Artikel akan muncul setelah dipublikasikan.",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -146,32 +160,43 @@ class _PostScreenState extends State<PostScreen> {
                   return post.title.toLowerCase().contains(query);
                 }).toList();
 
-                // Jika hasil pencarian tidak ada
+                // Jika hasil pencarian kosong
                 if (posts.isEmpty) {
                   return RefreshIndicator(
                     onRefresh: _handleRefresh,
                     child: ListView(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      children: const [
-                        SizedBox(height: 100),
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.search_off,
-                                size: 60,
-                                color: Colors.grey,
-                              ),
-                              SizedBox(height: 12),
-                              Text(
-                                "Artikel tidak ditemukan",
-                                style: TextStyle(
-                                  fontSize: 16,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          child: const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.search_off,
+                                  size: 70,
                                   color: Colors.grey,
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 16),
+                                Text(
+                                  "Artikel tidak ditemukan",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  "Coba gunakan kata kunci lain.",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
