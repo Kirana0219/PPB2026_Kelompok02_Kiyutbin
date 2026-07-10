@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:kiyutbin_mobile/features/splash/screen/splash_screen.dart';
 import 'core/theme/app_theme.dart';
+import 'core/routes/app_router.dart';
 
 import 'core/config/env.dart';
 
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Kiyutbin',
       theme: AppTheme.lightTheme,
-      home: const SplashScreen(),
+      initialRoute: AppRouter.splash,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
