@@ -5,10 +5,7 @@ import 'package:kiyutbin_mobile/core/config/database.dart';
 import 'package:kiyutbin_mobile/features/auth/models/auth_model.dart';
 import 'package:kiyutbin_mobile/features/auth/screen/login_screen.dart';
 import 'package:kiyutbin_mobile/features/auth/services/auth_service.dart';
-import 'package:kiyutbin_mobile/features/splash/screen/home_dummy.dart';
-
-// TODO: sesuaikan import Home screen kamu di bawah kalau sudah dibuat
-// import 'package:kiyutbin_mobile/features/home/screen/home_screen.dart';
+import 'package:kiyutbin_mobile/features/home/screen/home_screen.dart'; 
 
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
@@ -71,9 +68,7 @@ class _AuthGateState extends State<AuthGate> {
 
             final profile = profileSnapshot.data!;
 
-            // TODO: ganti dengan home screen kamu
-            // return HomeScreen(profile: profile);
-            return HomeDummy(
+            return HomeScreen(
               profile: profile,
             );
           },

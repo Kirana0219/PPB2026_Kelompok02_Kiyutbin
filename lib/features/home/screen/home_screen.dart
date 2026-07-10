@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kiyutbin_mobile/core/layout/footer.dart';
-import 'package:kiyutbin_mobile/core/layout/header.dart';
+import 'package:kiyutbin_mobile/core/layout/widgets/app_bottom.dart';
+import 'package:kiyutbin_mobile/core/layout/widgets/app_header.dart';
 import 'package:kiyutbin_mobile/features/auth/models/auth_model.dart';
 
-class HomeDummy extends StatefulWidget {
-  const HomeDummy({
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
     super.key,
     required this.profile,
   });
@@ -12,10 +12,10 @@ class HomeDummy extends StatefulWidget {
   final AuthModel profile;
 
   @override
-  State<HomeDummy> createState() => _HomeDummyState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeDummyState extends State<HomeDummy> {
+class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
 
   @override
