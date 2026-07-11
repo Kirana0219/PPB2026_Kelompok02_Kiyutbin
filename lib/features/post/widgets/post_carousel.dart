@@ -137,7 +137,7 @@ class _PostCarouselState extends State<PostCarousel> {
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                                  fontSize: 16,
                                 ),
                               ),
 

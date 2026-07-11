@@ -11,6 +11,7 @@ import '../widgets/home_banner.dart';
 import '../widgets/quick_menu.dart';
 import '../widgets/home_event_section.dart';
 import '../widgets/home_blog_section.dart';
+import '../widgets/home_post_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.profile});
@@ -62,8 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 6),
 
               const Text(
-                "Save The Earth Together",
-
+                "Let's Save The Earth Together!",
                 style: TextStyle(fontSize: 15, color: Colors.grey),
               ),
 
@@ -71,22 +71,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// Banner
               const HomeBanner(),
-
               const SizedBox(height: 28),
 
               /// Quick Menu
               const QuickMenu(),
-
               const SizedBox(height: 32),
+              
+              //post
+              HomePostSection(),
+              SizedBox(height:30),
 
               /// Event
               const HomeEventSection(),
-
               const SizedBox(height: 32),
+
 
               /// Blog
               const HomeBlogSection(),
-
               const SizedBox(height: 20),
             ],
           ),

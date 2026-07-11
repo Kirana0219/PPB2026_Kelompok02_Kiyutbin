@@ -94,7 +94,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   Text(
                     post.title,
                     style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -105,9 +105,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   Text(
                     "Rp ${post.price}",
                     style: const TextStyle(
-                      fontSize: 28,
+                      fontSize: 24,
                       color: AppColors.primary,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
 

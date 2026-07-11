@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:kiyutbin_mobile/core/layout/widgets/app_bottom.dart';
 import 'package:kiyutbin_mobile/core/layout/widgets/app_header.dart';
 import 'package:kiyutbin_mobile/core/routes/app_router.dart';
-import 'package:kiyutbin_mobile/features/events/widgets/calendar_section.dart';
-import 'package:kiyutbin_mobile/features/events/widgets/other_event_section.dart';
-import 'package:kiyutbin_mobile/features/events/widgets/registered_events_section.dart';
-import 'package:kiyutbin_mobile/features/events/widgets/todays_event_section.dart';
+
+import 'package:kiyutbin_mobile/features/events/widgets/sections/calendar_section.dart';
+import 'package:kiyutbin_mobile/features/events/widgets/sections/registered_event_section.dart';
+import 'package:kiyutbin_mobile/features/events/widgets/sections/selected_event_section.dart';
+import 'package:kiyutbin_mobile/features/events/widgets/sections/other_event_section.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({super.key});
@@ -16,7 +17,13 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
-  DateTime selectedDate = DateTime.now();
+  DateTime _selectedDate = DateTime.now();
+
+  void _onDateSelected(DateTime date) {
+    setState(() {
+      _selectedDate = date;
+    });
+  }
 
   void _onBottomNavigationTap(int index) {
     if (index == 1) return;
@@ -31,24 +38,15 @@ class _EventScreenState extends State<EventScreen> {
         break;
 
       case 2:
-        Navigator.pushNamed(
-          context,
-          AppRouter.scanner,
-        );
+        Navigator.pushNamed(context, AppRouter.scanner);
         break;
 
       case 3:
-        Navigator.pushNamed(
-          context,
-          AppRouter.blog,
-        );
+        Navigator.pushNamed(context, AppRouter.blog);
         break;
 
       case 4:
-        Navigator.pushNamed(
-          context,
-          AppRouter.profile,
-        );
+        Navigator.pushNamed(context, AppRouter.profile);
         break;
     }
   }
@@ -70,17 +68,17 @@ class _EventScreenState extends State<EventScreen> {
 
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 20,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               CalendarSection(
-                selectedDate: selectedDate,
-                onDateSelected: (date) {
-                  setState(() {
-                    selectedDate = date;
-                  });
-                },
+                selectedDate: _selectedDate,
+                onDateSelected: _onDateSelected,
               ),
 
               const SizedBox(height: 24),
@@ -95,7 +93,7 @@ class _EventScreenState extends State<EventScreen> {
 
               const OtherEventsSection(),
 
-              const SizedBox(height: 150),
+              const SizedBox(height: 120),
             ],
           ),
         ),

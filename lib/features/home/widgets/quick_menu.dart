@@ -10,11 +10,6 @@ class QuickMenu extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Quick Access",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-        ),
-
         const SizedBox(height: 18),
 
         Row(
