@@ -97,7 +97,7 @@ KIYUTBIN juga menyediakan fitur **Location** yang menampilkan lokasi tempat pemb
    ``` link
    https://stmikstikombali-my.sharepoint.com/:f:/g/personal/240040140_stikom-bali_ac_id/IgB8dMYhNR0RTYvmy6WbX10lAULgtWMSSuk-eQfao5Tr3pQ?e=EZ4reT
    ```
-
+   Ketika stuck pada halaman login bisa close aplikasi dan membukanya kembali. Atau masuk menggunakan putri@gmail.com (pass: putrik02)
 ### Kontribusi Anggota 
 
 | **NIM**       | **Anggota**                  | **Kontribusi**                                                                           |
