@@ -1,3 +1,7 @@
+-- ==========================================================
+-- KIYUTBIN: SYNC auth.users -> public.profiles
+-- ==========================================================
+
 create or replace function public.sync_auth_profile()
 returns trigger
 language plpgsql
@@ -5,41 +9,53 @@ security definer
 set search_path = public
 as $$
 begin
-  insert into public.auth as profiles (
+  insert into public.profiles as profiles (
     id,
+    role_id,
     full_name,
     email,
     phone,
+    photo_url,
+    is_active,
+    created_at,
     updated_at
   )
   values (
     new.id,
+    1,
     coalesce(nullif(new.raw_user_meta_data->>'full_name', ''), ''),
     coalesce(new.email, ''),
     nullif(new.raw_user_meta_data->>'phone', ''),
+    null,
+    true,
+    now(),
     now()
   )
   on conflict (id) do update
   set
     full_name = coalesce(
       nullif(excluded.full_name, ''),
-      nullif(profiles.full_name, ''),
+      profiles.full_name,
       ''
     ),
     email = coalesce(
       nullif(excluded.email, ''),
-      nullif(profiles.email, ''),
+      profiles.email,
       ''
     ),
     phone = coalesce(
       excluded.phone,
-      nullif(profiles.phone, '')
+      profiles.phone
     ),
     updated_at = now();
 
   return new;
 end;
 $$;
+
+-- ==========================================================
+-- TRIGGER
+-- ==========================================================
 
 drop trigger if exists sync_auth_profile_on_user_change on auth.users;
 
@@ -49,129 +65,86 @@ on auth.users
 for each row
 execute function public.sync_auth_profile();
 
-create or replace function public.ensure_auth_profile()
-returns void
-language plpgsql
-security definer
-set search_path = public
-as $$
-declare
-  current_user_id uuid := auth.uid();
-  auth_user auth.users%rowtype;
-begin
-  if current_user_id is null then
-    raise exception 'Not authenticated';
-  end if;
+-- ==========================================================
+-- ROW LEVEL SECURITY
+-- ==========================================================
 
-  select *
-  into auth_user
-  from auth.users
-  where id = current_user_id;
+alter table public.profiles enable row level security;
 
-  if auth_user.id is null then
-    raise exception 'Auth user not found';
-  end if;
+drop policy if exists "Users can read own profile" on public.profiles;
+drop policy if exists "Users can insert own profile" on public.profiles;
+drop policy if exists "Users can update own profile" on public.profiles;
+drop policy if exists "Users can delete own profile" on public.profiles;
 
-  insert into public.auth as profiles (
-    id,
-    full_name,
-    email,
-    phone,
-    updated_at
-  )
-  values (
-    auth_user.id,
-    coalesce(nullif(auth_user.raw_user_meta_data->>'full_name', ''), ''),
-    coalesce(auth_user.email, ''),
-    nullif(auth_user.raw_user_meta_data->>'phone', ''),
-    now()
-  )
-  on conflict (id) do update
-  set
-    full_name = coalesce(
-      nullif(excluded.full_name, ''),
-      nullif(profiles.full_name, ''),
-      ''
-    ),
-    email = coalesce(
-      nullif(excluded.email, ''),
-      nullif(profiles.email, ''),
-      ''
-    ),
-    phone = coalesce(
-      excluded.phone,
-      nullif(profiles.phone, '')
-    ),
-    updated_at = now();
-end;
-$$;
-
-grant execute on function public.ensure_auth_profile() to authenticated;
-
-alter table public.auth enable row level security;
-
-drop policy if exists "Users can read own profile" on public.auth;
 create policy "Users can read own profile"
-on public.auth
+on public.profiles
 for select
 to authenticated
 using (auth.uid() = id);
 
-drop policy if exists "Users can insert own profile" on public.auth;
 create policy "Users can insert own profile"
-on public.auth
+on public.profiles
 for insert
 to authenticated
-with check (auth.uid() = id);
+with check (
+  auth.uid() = id
+  and role_id = 1
+  and is_active = true
+);
 
-drop policy if exists "Users can update own profile" on public.auth;
 create policy "Users can update own profile"
-on public.auth
+on public.profiles
 for update
 to authenticated
 using (auth.uid() = id)
 with check (auth.uid() = id);
 
-drop policy if exists "Users can delete own profile" on public.auth;
 create policy "Users can delete own profile"
-on public.auth
+on public.profiles
 for delete
 to authenticated
 using (auth.uid() = id);
 
-insert into public.auth as profiles (
+-- ==========================================================
+-- BUAT PROFILE UNTUK USER LAMA
+-- ==========================================================
+
+insert into public.profiles as profiles (
   id,
+  role_id,
   full_name,
   email,
   phone,
+  photo_url,
+  is_active,
+  created_at,
   updated_at
 )
 select
   users.id,
+  1,
   coalesce(nullif(users.raw_user_meta_data->>'full_name', ''), ''),
   coalesce(users.email, ''),
   nullif(users.raw_user_meta_data->>'phone', ''),
+  null,
+  true,
+  now(),
   now()
 from auth.users as users
-where not exists (
-  select 1
-  from public.auth as existing_profiles
-  where existing_profiles.id = users.id
-)
 on conflict (id) do update
 set
   full_name = coalesce(
     nullif(excluded.full_name, ''),
-    nullif(profiles.full_name, ''),
+    profiles.full_name,
     ''
   ),
   email = coalesce(
     nullif(excluded.email, ''),
-    nullif(profiles.email, ''),
+    profiles.email,
     ''
   ),
   phone = coalesce(
     excluded.phone,
-    nullif(profiles.phone, '')
+    profiles.phone
   ),
   updated_at = now();

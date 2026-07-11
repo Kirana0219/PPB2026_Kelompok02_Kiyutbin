@@ -41,7 +41,7 @@ class _AuthGateState extends State<AuthGate> {
           );
         }
 
-        final session = Database.client.auth.currentSession;
+      final session = Database.client.auth.currentSession;
 
         if (session == null) {
           _cachedUserId = null;
