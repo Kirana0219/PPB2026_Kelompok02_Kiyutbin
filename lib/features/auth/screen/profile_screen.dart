@@ -114,6 +114,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppHeader(
         showBackButton: true,
         showProfileAvatar: false,
+        onNotification: () {
+          Navigator.pushNamed(context, AppRouter.notification);
+        },
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

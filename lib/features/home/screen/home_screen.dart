@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
         showBackButton: false,
         profileImageUrl: widget.profile.photoUrl,
         onNotification: () {
-          // TODO: buka halaman notifikasi
+          Navigator.pushNamed(context, AppRouter.notification);
         },
         onProfile: () {
           Navigator.pushNamed(context, AppRouter.profile);

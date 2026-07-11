@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kiyutbin_mobile/features/notification/models/notification_model.dart';
 
 import 'package:kiyutbin_mobile/features/splash/screen/auth_gate.dart';
 
@@ -21,6 +22,9 @@ import '../../features/blog/screen/my_story_screen.dart';
 //event
 import '../../features/events/screens/events_screen.dart';
 
+//notif
+import '../../features/notification/screen/notification_screen.dart';
+
 class AppRouter {
   AppRouter._();
 
@@ -36,6 +40,7 @@ class AppRouter {
   static const createBlog = "/create-blog";
   static const String myStories = '/blog/my-stories';
   static const String events= '/events';
+  static const String notification = '/notification';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -43,6 +48,10 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const SplashScreen(),
         );
+      case notification:
+      return MaterialPageRoute(
+        builder: (_) => const NotificationScreen(),
+      );
 
       case login:
         return MaterialPageRoute(
