@@ -19,17 +19,17 @@ class _HomeEventSectionState extends State<HomeEventSection> {
     _HomeEvent(
       title: "Beach Cleanup",
       date: "20 July 2026",
-      image: "assets/images/events1.jpeg",
+      image: "assets/images/events/beach_cleanup.jpg",
     ),
     _HomeEvent(
       title: "Tree Planting",
       date: "28 July 2026",
-      image: "assets/images/events2.jpeg",
+      image: "assets/images/events/tree_planting.jpg",
     ),
     _HomeEvent(
-      title: "Save The Earth",
+      title: "Mangrove Planting",
       date: "2 August 2026",
-      image: "assets/images/events3.jpeg",
+      image: "assets/images/events/mangrove.jpg",
     ),
   ];
 
