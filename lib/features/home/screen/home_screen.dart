@@ -5,10 +5,7 @@ import 'package:kiyutbin_mobile/features/auth/models/auth_model.dart';
 import 'package:kiyutbin_mobile/core/routes/app_router.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    super.key,
-    required this.profile,
-  });
+  const HomeScreen({super.key, required this.profile});
 
   final AuthModel profile;
 
@@ -24,24 +21,21 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppHeader(
         showBackButton: false,
-        profileImage: 'assets/images/profile.png',
+        profileImageUrl: widget.profile.photoUrl,
         onNotification: () {
-          // TODO: buka halaman notifikasi
+          Navigator.pushNamed(context, AppRouter.notification);
         },
         onProfile: () {
-          // TODO: buka halaman profile
+          Navigator.pushNamed(context, AppRouter.profile);
         },
       ),
 
-      body: Center(
-        child: Text(
-          'Halo ${widget.profile.fullName}',
-        ),
-      ),
+      body: Center(child: Text('Halo ${widget.profile.fullName}')),
 
       bottomNavigationBar: AppFooter(
         currentIndex: currentIndex,
         onTap: (index) {
+
           setState(() {
             currentIndex = index;
           });
@@ -55,7 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
               break;
 
             case 1:
-              // Event
+              Navigator.pushNamed(
+                context,
+                AppRouter.events,
+              );
               break;
 
             case 2:
@@ -75,7 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
               break;
 
             case 4:
-              // Profile
+              Navigator.pushNamed(
+                context,
+                AppRouter.profile,
+              );
               break;
           }
         },

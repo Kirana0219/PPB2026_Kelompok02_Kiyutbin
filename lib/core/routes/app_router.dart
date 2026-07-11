@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kiyutbin_mobile/features/notification/models/notification_model.dart';
 
 import 'package:kiyutbin_mobile/features/splash/screen/auth_gate.dart';
 
@@ -7,6 +8,7 @@ import '../../features/splash/screen/splash_screen.dart';
 // Auth
 import '../../features/auth/screen/login_screen.dart';
 import '../../features/auth/screen/register_screen.dart';
+import '../../features/auth/screen/profile_screen.dart';
 
 // Scanner
 import '../../features/qr_scanner/screen/scanner_screen.dart';
@@ -17,6 +19,12 @@ import '../../features/blog/screen/blog_detail_screen.dart';
 import '../../features/blog/screen/create_blog_screen.dart';
 import '../../features/blog/screen/my_story_screen.dart';
 
+//event
+import '../../features/events/screens/events_screen.dart';
+
+//notif
+import '../../features/notification/screen/notification_screen.dart';
+
 class AppRouter {
   AppRouter._();
 
@@ -26,10 +34,13 @@ class AppRouter {
   static const String register = '/register';
   static const String home = '/home';
   static const String scanner = '/scanner';
+  static const String profile = '/profile';
   static const String blog = '/blog';
   static const String blogDetail = '/blog/detail';
   static const createBlog = "/create-blog";
   static const String myStories = '/blog/my-stories';
+  static const String events= '/events';
+  static const String notification = '/notification';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -37,6 +48,10 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const SplashScreen(),
         );
+      case notification:
+      return MaterialPageRoute(
+        builder: (_) => const NotificationScreen(),
+      );
 
       case login:
         return MaterialPageRoute(
@@ -56,6 +71,11 @@ class AppRouter {
       case AppRouter.scanner:
         return MaterialPageRoute(
           builder: (_) => const ScannerScreen(),
+        );
+
+      case AppRouter.profile:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileScreen(),
         );
 
       case AppRouter.blog:
@@ -82,6 +102,10 @@ class AppRouter {
           builder: (_) => const MyStoryScreen(),
         );
 
+      case AppRouter.events:
+        return MaterialPageRoute(
+          builder: (_) => const EventScreen()
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => const LoginScreen(),

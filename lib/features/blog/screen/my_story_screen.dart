@@ -112,7 +112,7 @@ class _MyStoryScreenState extends State<MyStoryScreen> {
                 padding: const EdgeInsets.all(20),
                 children: [
                   const Text(
-                    'My Stories',
+                    'My Blog',
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),

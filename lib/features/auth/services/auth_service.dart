@@ -111,6 +111,23 @@ Future<AuthResponse> signUp({
     }).eq('id', user.id);
   }
 
+  Future<void> updateEmail(String email) async {
+    final user = currentUser;
+
+    if (user == null) {
+      throw Exception("User belum login.");
+    }
+
+    await _supabase.auth.updateUser(
+      UserAttributes(email: email),
+    );
+
+    await _supabase.from('profiles').update({
+      'email': email,
+      'updated_at': DateTime.now().toIso8601String(),
+    }).eq('id', user.id);
+  }
+
   // ==========================
   // RESET PASSWORD
   // ==========================

@@ -6,6 +6,7 @@ import '../../../core/theme/app_colors.dart';
 import '../services/camera_service.dart';
 import '../widgets/camera_buttons.dart';
 import '../widgets/scanner_overlay.dart';
+import '../../../core/routes/app_router.dart';
 
 class ScannerScreen extends StatefulWidget {
   const ScannerScreen({super.key});
@@ -43,9 +44,14 @@ class _ScannerScreenState extends State<ScannerScreen> {
       backgroundColor: Colors.black,
 
       appBar: AppHeader(
-        onBack: () => Navigator.pop(context),
-        onNotification: () {},
-        onProfile: () {},
+        showBackButton: true,
+        profileImage: null,
+        onNotification: () {
+          Navigator.pushNamed(context, AppRouter.notification);
+        },
+        onProfile: () {
+          Navigator.pushNamed(context, AppRouter.profile);
+        },
       ),
 
       body: SafeArea(
