@@ -1,25 +1,25 @@
 class PostModel {
   final String id;
   final String title;
-  final String content;
+  final String category;
+  final String description;
   final String imageUrl;
+  final String seller;
+  final String location;
+  final int price;
+  final String condition;
   final DateTime createdAt;
 
-  PostModel({
+  const PostModel({
     required this.id,
     required this.title,
-    required this.content,
+    required this.category,
+    required this.description,
     required this.imageUrl,
+    required this.seller,
+    required this.location,
+    required this.price,
+    required this.condition,
     required this.createdAt,
   });
-
-  factory PostModel.fromMap(Map<String, dynamic> map) {
-    return PostModel(
-      id: map['id'].toString(),
-      title: map['title'] ?? '',
-      content: map['content'] ?? '',
-      imageUrl: map['image_url'] ?? '',
-      createdAt: DateTime.parse(map['created_at']),
-    );
-  }
 }
