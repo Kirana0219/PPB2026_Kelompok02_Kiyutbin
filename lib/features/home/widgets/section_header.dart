@@ -6,13 +6,13 @@ import '../../../core/theme/app_text_styles.dart';
 class SectionHeader extends StatelessWidget {
   final String title;
   final String actionText;
-  final VoidCallback? onTap;
+  final VoidCallback? onViewAll;
 
   const SectionHeader({
     super.key,
     required this.title,
     this.actionText = "View All",
-    this.onTap,
+    this.onViewAll,
   });
 
   @override
@@ -27,12 +27,14 @@ class SectionHeader extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
-
         InkWell(
           borderRadius: BorderRadius.circular(20),
-          onTap: onTap,
+          onTap: onViewAll,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 4,
+              vertical: 2,
+            ),
             child: Text(
               actionText,
               style: AppTextStyles.body.copyWith(

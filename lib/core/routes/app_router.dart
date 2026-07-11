@@ -27,6 +27,8 @@ import '../../features/location/screen/location_screen.dart';
 
 //post
 import '../../features/post/screen/post_screen.dart';
+import '../../features/post/screen/post_detail_screen.dart';
+import '../../features/post/model/post_model.dart';
 
 //notif
 import '../../features/notification/screen/notification_screen.dart';
@@ -49,6 +51,7 @@ class AppRouter {
   static const String notification = '/notification';
   static const String location = '/location';
   static const String post = '/post';
+  static const postDetail = "/post-detail";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -103,7 +106,14 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const PostScreen(),
         );
+      case AppRouter.postDetail:
+        final post = settings.arguments as PostModel;
 
+        return MaterialPageRoute(
+          builder: (_) => PostDetailScreen(
+            post: post,
+          ),
+        );
       case AppRouter.createBlog:
         return MaterialPageRoute(
           builder: (_) => const CreateBlogScreen(),
