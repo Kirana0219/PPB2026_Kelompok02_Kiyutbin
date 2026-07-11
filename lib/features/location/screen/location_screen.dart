@@ -164,6 +164,94 @@ class LocationScreen extends StatelessWidget {
             ),
           ),
 
+          Container(
+            margin: const EdgeInsets.symmetric(
+                horizontal: 16,
+            ),
+
+            padding: const EdgeInsets.all(16),
+
+            decoration: BoxDecoration(
+                color: Colors.white,
+
+                borderRadius: BorderRadius.circular(18),
+
+                boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                ),
+                ],
+            ),
+
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+
+                Row(
+                    children: [
+
+                    const Icon(
+                        Icons.location_on,
+                        color: Colors.green,
+                    ),
+
+                    const SizedBox(width: 8),
+
+                    const Text(
+                        "Bank Sampah Renon",
+                        style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        ),
+                    ),
+
+                    ],
+                ),
+
+
+                const SizedBox(height: 8),
+
+
+                const Text(
+                    "Jl. Raya Puputan, Renon, Denpasar",
+                    style: TextStyle(
+                    color: Colors.grey,
+                    ),
+                ),
+
+
+                const SizedBox(height: 8),
+
+
+                const Row(
+                    children: [
+
+                    Icon(
+                        Icons.access_time,
+                        size: 18,
+                        color: Colors.grey,
+                    ),
+
+                    SizedBox(width: 6),
+
+                    Text(
+                        "08.00 - 17.00",
+                        style: TextStyle(
+                        color: Colors.grey,
+                        ),
+                    ),
+
+                    ],
+                ),
+
+
+                ],
+            ),
+            ),
+
           const SizedBox(height: 20),
         ],
       ),
