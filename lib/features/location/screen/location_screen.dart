@@ -45,23 +45,44 @@ class LocationScreen extends StatelessWidget {
         children: [
 
           /// Search Bar
-          Padding(
+            Padding(
             padding: const EdgeInsets.all(16),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: "Cari lokasi bank sampah...",
-                prefixIcon: const Icon(Icons.search),
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide.none,
+            child: Container(
+                decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                    BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                    ),
+                ],
                 ),
-              ),
+
+                child: TextField(
+                decoration: InputDecoration(
+                    hintText: "Cari lokasi bank sampah...",
+
+                    hintStyle: const TextStyle(
+                    color: Colors.grey,
+                    ),
+
+                    prefixIcon: const Icon(
+                    Icons.search,
+                    color: Colors.green,
+                    ),
+
+                    border: InputBorder.none,
+
+                    contentPadding:
+                        const EdgeInsets.symmetric(
+                        vertical: 16,
+                        ),
+                ),
+                ),
             ),
-          ),
+            ),
 
 
           /// Map
