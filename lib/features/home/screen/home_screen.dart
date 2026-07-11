@@ -230,7 +230,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        // TODO: Google Maps
+                        Navigator.pushNamed(
+                          context,
+                          AppRouter.location,
+                        );
                       },
                       icon: const Icon(Icons.map),
                       label: const Text("Lihat Lokasi"),
