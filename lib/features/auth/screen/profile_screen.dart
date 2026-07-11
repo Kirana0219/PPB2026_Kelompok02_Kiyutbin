@@ -115,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppHeader(
-        showBackButton: true,
+        showBackButton: false,
         showProfileAvatar: false,
         onNotification: () {
           Navigator.pushNamed(context, AppRouter.notification);

@@ -2,257 +2,226 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-class LocationScreen extends StatelessWidget {
+import '../../../core/layout/widgets/app_header.dart';
+import '../../../core/routes/app_router.dart';
+
+class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
+
+  @override
+  State<LocationScreen> createState() => _LocationScreenState();
+}
+
+class _LocationScreenState extends State<LocationScreen> {
+  final MapController _mapController = MapController();
+  final TextEditingController _searchController = TextEditingController();
 
   final List<Map<String, dynamic>> bankSampah = const [
     {
-      "nama": "Bank Sampah Renon",
-      "alamat": "Jl. Raya Puputan, Renon, Denpasar",
-      "lokasi": LatLng(-8.6705, 115.2126),
+      'nama': 'Bank Sampah Renon',
+      'alamat': 'Jl. Raya Puputan, Renon, Denpasar',
+      'lokasi': LatLng(-8.6705, 115.2126),
     },
     {
-      "nama": "Bank Sampah Sanur",
-      "alamat": "Jl. Danau Tamblingan, Sanur",
-      "lokasi": LatLng(-8.6905, 115.2636),
+      'nama': 'Bank Sampah Sanur',
+      'alamat': 'Jl. Danau Tamblingan, Sanur',
+      'lokasi': LatLng(-8.6905, 115.2636),
     },
     {
-      "nama": "Bank Sampah Ubung",
-      "alamat": "Jl. Cokroaminoto, Ubung, Denpasar",
-      "lokasi": LatLng(-8.6355, 115.2085),
+      'nama': 'Bank Sampah Ubung',
+      'alamat': 'Jl. Cokroaminoto, Ubung, Denpasar',
+      'lokasi': LatLng(-8.6355, 115.2085),
     },
     {
-      "nama": "Bank Sampah Monang Maning",
-      "alamat": "Jl. Gunung Salak, Denpasar",
-      "lokasi": LatLng(-8.6588, 115.1938),
+      'nama': 'Bank Sampah Monang Maning',
+      'alamat': 'Jl. Gunung Salak, Denpasar',
+      'lokasi': LatLng(-8.6588, 115.1938),
     },
   ];
 
+  String _keyword = '';
+
+  List<Map<String, dynamic>> get _searchResults {
+    final keyword = _keyword.trim().toLowerCase();
+    if (keyword.isEmpty) return const [];
+
+    return bankSampah.where((location) {
+      final name = location['nama'] as String;
+      final address = location['alamat'] as String;
+      return name.toLowerCase().contains(keyword) ||
+          address.toLowerCase().contains(keyword);
+    }).toList();
+  }
+
+  void _focusLocation(Map<String, dynamic> location) {
+    final point = location['lokasi'] as LatLng;
+    _mapController.move(point, 16);
+    FocusScope.of(context).unfocus();
+
+    setState(() {
+      _searchController.text = location['nama'] as String;
+      _keyword = _searchController.text;
+    });
+  }
+
+  void _search() {
+    if (_searchResults.isNotEmpty) {
+      _focusLocation(_searchResults.first);
+    }
+  }
+
+  void _showLocationDetail(Map<String, dynamic> location) {
+    final name = location['nama'] as String;
+    final address = location['alamat'] as String;
+
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(name),
+        content: Text(address),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Tutup'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final searchResults = _searchResults;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F9F8),
-
-      appBar: AppBar(
-        title: const Text("Lokasi Bank Sampah"),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        foregroundColor: Colors.black,
+      appBar: AppHeader(
+        showBackButton: true,
+        onNotification: () {
+          Navigator.pushNamed(context, AppRouter.notification);
+        },
+        onProfile: () {
+          Navigator.pushNamed(context, AppRouter.profile);
+        },
       ),
-
-      body: Column(
+      body: Stack(
         children: [
-
-          /// Search Bar
-            Padding(
-            padding: const EdgeInsets.all(16),
-            child: Container(
-                decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(18),
-                boxShadow: [
-                    BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                    ),
-                ],
-                ),
-
-                child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Cari lokasi bank sampah...",
-
-                    hintStyle: const TextStyle(
-                    color: Colors.grey,
-                    ),
-
-                    prefixIcon: const Icon(
-                    Icons.search,
-                    color: Colors.green,
-                    ),
-
-                    border: InputBorder.none,
-
-                    contentPadding:
-                        const EdgeInsets.symmetric(
-                        vertical: 16,
-                        ),
-                ),
-                ),
+          FlutterMap(
+            mapController: _mapController,
+            options: const MapOptions(
+              initialCenter: LatLng(-8.6705, 115.2126),
+              initialZoom: 13,
             ),
-            ),
-
-
-          /// Map
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-
-                child: FlutterMap(
-                  options: const MapOptions(
-                    initialCenter: LatLng(-8.6705, 115.2126),
-                    initialZoom: 13,
-                  ),
-
-                  children: [
-
-                    TileLayer(
-                      urlTemplate:
-                          "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      userAgentPackageName:
-                          "com.example.kiyutbin",
-                    ),
-
-
-                    MarkerLayer(
-                      markers: bankSampah.map((data) {
-
-                        return Marker(
-                          point: data["lokasi"],
-                          width: 60,
-                          height: 60,
-
-                          child: GestureDetector(
-                            onTap: () {
-
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-
-                                  return AlertDialog(
-                                    title: Text(
-                                      data["nama"],
-                                    ),
-
-                                    content: Text(
-                                      data["alamat"],
-                                    ),
-
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child:
-                                            const Text("Tutup"),
-                                      )
-                                    ],
-                                  );
-                                },
-                              );
-
-                            },
-
-                            child: const Icon(
-                              Icons.location_on,
-                              color: Colors.green,
-                              size: 40,
-                            ),
-                          ),
-                        );
-
-                      }).toList(),
-                    ),
-
-                  ],
-                ),
+            children: [
+              TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                userAgentPackageName: 'com.example.kiyutbin',
               ),
-            ),
-          ),
-
-          Container(
-            margin: const EdgeInsets.symmetric(
-                horizontal: 16,
-            ),
-
-            padding: const EdgeInsets.all(16),
-
-            decoration: BoxDecoration(
-                color: Colors.white,
-
-                borderRadius: BorderRadius.circular(18),
-
-                boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                ),
-                ],
-            ),
-
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-
-                children: [
-
-                Row(
-                    children: [
-
-                    const Icon(
+              MarkerLayer(
+                markers: bankSampah.map((location) {
+                  return Marker(
+                    point: location['lokasi'] as LatLng,
+                    width: 60,
+                    height: 60,
+                    child: GestureDetector(
+                      onTap: () => _showLocationDetail(location),
+                      child: const Icon(
                         Icons.location_on,
                         color: Colors.green,
+                        size: 44,
+                      ),
                     ),
-
-                    const SizedBox(width: 8),
-
-                    const Text(
-                        "Bank Sampah Renon",
-                        style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        ),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Material(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  elevation: 3,
+                  child: TextField(
+                    controller: _searchController,
+                    textInputAction: TextInputAction.search,
+                    onChanged: (value) => setState(() {
+                      _keyword = value;
+                    }),
+                    onSubmitted: (_) => _search(),
+                    decoration: InputDecoration(
+                      hintText: 'Cari bank sampah...',
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                      prefixIcon: const Icon(Icons.search, color: Colors.green),
+                      suffixIcon: IconButton(
+                        onPressed: _search,
+                        icon: const Icon(Icons.arrow_forward),
+                        tooltip: 'Cari lokasi',
+                      ),
                     ),
-
-                    ],
+                  ),
                 ),
-
-
-                const SizedBox(height: 8),
-
-
-                const Text(
-                    "Jl. Raya Puputan, Renon, Denpasar",
-                    style: TextStyle(
-                    color: Colors.grey,
-                    ),
-                ),
-
-
-                const SizedBox(height: 8),
-
-
-                const Row(
-                    children: [
-
-                    Icon(
-                        Icons.access_time,
-                        size: 18,
-                        color: Colors.grey,
-                    ),
-
-                    SizedBox(width: 6),
-
-                    Text(
-                        "08.00 - 17.00",
-                        style: TextStyle(
-                        color: Colors.grey,
-                        ),
-                    ),
-
-                    ],
-                ),
-
-
+                if (_keyword.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Material(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    elevation: 3,
+                    child: searchResults.isEmpty
+                        ? const Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Text('Lokasi tidak ditemukan.'),
+                          )
+                        : ListView.separated(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.zero,
+                            itemCount: searchResults.length,
+                            separatorBuilder: (_, _) =>
+                                const Divider(height: 1),
+                            itemBuilder: (context, index) {
+                              final location = searchResults[index];
+                              return ListTile(
+                                leading: const Icon(
+                                  Icons.location_on,
+                                  color: Colors.green,
+                                ),
+                                title: Text(location['nama'] as String),
+                                subtitle: Text(location['alamat'] as String),
+                                onTap: () => _focusLocation(location),
+                              );
+                            },
+                          ),
+                  ),
                 ],
+                const Spacer(),
+                Material(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  elevation: 3,
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.location_on, color: Colors.green),
+                        SizedBox(width: 8),
+                        Text('Pilih marker untuk melihat detail'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            ),
-
-          const SizedBox(height: 20),
+          ),
         ],
       ),
     );
