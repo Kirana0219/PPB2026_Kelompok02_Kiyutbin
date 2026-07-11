@@ -46,7 +46,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
       appBar: AppHeader(
         showBackButton: true,
         profileImage: null,
-        onNotification: () {},
+        onNotification: () {
+          Navigator.pushNamed(context, AppRouter.notification);
+        },
         onProfile: () {
           Navigator.pushNamed(context, AppRouter.profile);
         },

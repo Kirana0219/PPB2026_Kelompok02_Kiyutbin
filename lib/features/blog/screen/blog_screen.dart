@@ -118,7 +118,9 @@ class _BlogScreenState extends State<BlogScreen> {
       appBar: AppHeader(
         showBackButton: false,
         profileImageUrl: null,
-        onNotification: () {},
+        onNotification: () {
+          Navigator.pushNamed(context, AppRouter.notification);
+        },
         onProfile: () {
           Navigator.pushNamed(context, AppRouter.profile);
         },

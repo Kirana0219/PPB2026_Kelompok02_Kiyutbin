@@ -61,7 +61,7 @@ class _EventScreenState extends State<EventScreen> {
       appBar: AppHeader(
         showBackButton: false,
         onNotification: () {
-          // TODO: Notification
+          Navigator.pushNamed(context, AppRouter.notification);
         },
         onProfile: () {
           Navigator.pushNamed(context, AppRouter.profile);
