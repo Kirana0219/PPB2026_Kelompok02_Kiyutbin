@@ -7,6 +7,9 @@ import '../../../core/theme/app_colors.dart';
 
 import '../model/post_model.dart';
 import '../services/post_service.dart';
+import '../widgets/post_card.dart';
+import '../widgets/post_carousel.dart';
+import '../widgets/post_section_header.dart';
 import 'post_detail_screen.dart';
 
 class PostScreen extends StatefulWidget {
@@ -17,18 +20,66 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
-  final PostService _postService = PostService();
+  final TextEditingController searchController = TextEditingController();
 
-  late Future<List<PostModel>> _posts;
-
-  /// index Post tidak ada di Bottom Navigation,
-  /// jadi gunakan Home sebagai default
   int currentIndex = 0;
 
+  String keyword = "";
+
+  List<PostModel> get products => PostService.posts;
+
+  List<PostModel> get featuredProducts => products.take(3).toList();
+
+  List<PostModel> get latestProducts {
+    if (keyword.isEmpty) return products;
+
+    return products.where((e) {
+      return e.title.toLowerCase().contains(keyword.toLowerCase()) ||
+          e.category.toLowerCase().contains(keyword.toLowerCase());
+    }).toList();
+  }
+
+  void openDetail(PostModel post) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => PostDetailScreen(post: post)),
+    );
+  }
+
+  void onBottomTap(int index) {
+    if (index == currentIndex) return;
+
+    switch (index) {
+      case 0:
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRouter.home,
+          (_) => false,
+        );
+        break;
+
+      case 1:
+        Navigator.pushNamed(context, AppRouter.events);
+        break;
+
+      case 2:
+        Navigator.pushNamed(context, AppRouter.scanner);
+        break;
+
+      case 3:
+        Navigator.pushNamed(context, AppRouter.blog);
+        break;
+
+      case 4:
+        Navigator.pushNamed(context, AppRouter.profile);
+        break;
+    }
+  }
+
   @override
-  void initState() {
-    super.initState();
-    _posts = _postService.getPosts();
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -40,179 +91,86 @@ class _PostScreenState extends State<PostScreen> {
         showBackButton: true,
 
         onNotification: () {
-          Navigator.pushNamed(
-            context,
-            AppRouter.notification,
-          );
+          Navigator.pushNamed(context, AppRouter.notification);
         },
 
         onProfile: () {
-          Navigator.pushNamed(
-            context,
-            AppRouter.profile,
-          );
+          Navigator.pushNamed(context, AppRouter.profile);
         },
       ),
 
-      body: FutureBuilder<List<PostModel>>(
-        future: _posts,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState ==
-              ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 100),
 
-          if (snapshot.hasError) {
-            return Center(
-              child: Text(snapshot.error.toString()),
-            );
-          }
+        children: [
+          /// SEARCH
+          Container(
+            height: 50,
 
-          if (!snapshot.hasData ||
-              snapshot.data!.isEmpty) {
-            return const Center(
-              child: Text("Belum ada artikel"),
-            );
-          }
+            decoration: BoxDecoration(
+              color: Colors.white,
 
-          final posts = snapshot.data!;
+              borderRadius: BorderRadius.circular(30),
 
-          return ListView.builder(
-            padding: const EdgeInsets.only(
-              top: 16,
-              bottom: 20,
-            ),
-            itemCount: posts.length,
-            itemBuilder: (context, index) {
-              final post = posts[index];
-
-              return InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          PostDetailScreen(post: post),
-                    ),
-                  );
-                },
-                child: Card(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(16),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
-                      children: [
-                        if (post.imageUrl.isNotEmpty)
-                          ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(12),
-                            child: Image.network(
-                              post.imageUrl,
-                              height: 190,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                              errorBuilder:
-                                  (_, __, ___) =>
-                                      const SizedBox(),
-                            ),
-                          ),
-
-                        const SizedBox(height: 16),
-
-                        Text(
-                          post.title,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight:
-                                FontWeight.bold,
-                          ),
-                        ),
-
-                        const SizedBox(height: 8),
-
-                        Text(
-                          post.content,
-                          maxLines: 3,
-                          overflow:
-                              TextOverflow.ellipsis,
-                        ),
-
-                        const SizedBox(height: 12),
-
-                        Text(
-                          "Dipublikasikan ${post.createdAt.day}/${post.createdAt.month}/${post.createdAt.year}",
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: .05),
+                  blurRadius: 10,
                 ),
-              );
-            },
-          );
-        },
+              ],
+            ),
+
+            child: TextField(
+              controller: searchController,
+
+              onChanged: (value) {
+                setState(() {
+                  keyword = value;
+                });
+              },
+
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+
+                hintText: "Search product...",
+
+                prefixIcon: Icon(Icons.search),
+
+                contentPadding: EdgeInsets.symmetric(vertical: 14),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 28),
+
+          /// FEATURED
+          PostSectionHeader(title: "Featured Products", onViewAll: () {}),
+
+          const SizedBox(height: 16),
+
+          PostCarousel(posts: featuredProducts, onTap: openDetail),
+
+          const SizedBox(height: 32),
+
+          /// LATEST
+          const PostSectionHeader(title: "Latest Products"),
+
+          const SizedBox(height: 16),
+
+          ...latestProducts.map(
+            (post) => Padding(
+              padding: const EdgeInsets.only(bottom: 18),
+
+              child: PostCard(post: post, onTap: () => openDetail(post)),
+            ),
+          ),
+        ],
       ),
 
       bottomNavigationBar: AppFooter(
         currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
 
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(
-                context,
-                AppRouter.home,
-              );
-              break;
-
-            case 1:
-              Navigator.pushNamed(
-                context,
-                AppRouter.events,
-              );
-              break;
-
-            case 2:
-              Navigator.pushNamed(
-                context,
-                AppRouter.scanner,
-              );
-              break;
-
-            case 3:
-              Navigator.pushNamed(
-                context,
-                AppRouter.blog,
-              );
-              break;
-
-            case 4:
-              Navigator.pushNamed(
-                context,
-                AppRouter.profile,
-              );
-              break;
-          }
-        },
+        onTap: onBottomTap,
       ),
     );
   }
