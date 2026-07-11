@@ -1,6 +1,3 @@
-# KIYUTBIN
-
-KIYUTBIN adalah aplikasi mobile berbasis Flutter untuk mendukung edukasi dan partisipasi masyarakat dalam pengelolaan sampah. Aplikasi ini menyediakan informasi lingkungan, artikel edukatif, agenda kegiatan, serta fitur pendukung agar pengguna lebih mudah menerapkan pengelolaan sampah yang bertanggung jawab.
 
 ## Identitas Project
 
@@ -12,18 +9,18 @@ KIYUTBIN adalah aplikasi mobile berbasis Flutter untuk mendukung edukasi dan par
 
 ### Anggota Kelompok
 
-| **NIM**       | **Anggota**                  | **Kontribusi**                                                                           |
-| ------------- | ---------------------------- | ---------------------------------------------------------------------------------------- |
-| **240040140** | Kirana (Kirana0219)          | Membuat database, mengembangkan fitur Blog, Profile, Notifikasi, dan Waste Scanner.      |
-| **240040135** | Putu Kartika (Putu-Kartika)  | Mengembangkan fitur Home, Post, dan Location.                                            |
-| **240040138** | Yuni Dwiyantini (Yuni18-git) | Mendesain antarmuka aplikasi (UI), membuat Splash Screen, dan mengembangkan fitur Event. |
+
+| Nama | NIM |
+|------|------|
+| Ni Putu Kartika Wirastari | 240040135 |
+| Kadek Yuni Dwiyantini Savitri | 240040138 |
+| Ni Nyoman Putri Kirana | 240040140 |
 
 
 ## Deskripsi
 
-Sampah masih menjadi persoalan lingkungan yang berdampak pada kebersihan, kesehatan, kualitas ekosistem, dan keberlanjutan kehidupan masyarakat. Peningkatan volume sampah, rendahnya kebiasaan pemilahan dari sumber, keterbatasan informasi fasilitas pengelolaan, serta rendahnya partisipasi dalam kegiatan lingkungan menjadi tantangan yang perlu ditangani bersama.
+KIYUTBIN adalah aplikasi mobile berbasis Flutter untuk mendukung edukasi dan partisipasi masyarakat dalam pengelolaan sampah. Aplikasi ini menyediakan informasi lingkungan, artikel edukatif, agenda kegiatan, serta fitur pendukung agar pengguna lebih mudah menerapkan pengelolaan sampah yang bertanggung jawab.
 
-KIYUTBIN dikembangkan sebagai media digital yang mudah diakses untuk membantu masyarakat memperoleh edukasi pengelolaan sampah, informasi kegiatan lingkungan, dan ruang berbagi konten. Aplikasi menggunakan Supabase untuk autentikasi, basis data, dan penyimpanan berkas.
 
 ## Permasalahan
 
@@ -36,8 +33,11 @@ Permasalahan yang diangkat dalam pengembangan KIYUTBIN meliputi:
 
 ## Solusi
 
-KIYUTBIN menyatukan edukasi, informasi kegiatan, dan interaksi komunitas dalam satu aplikasi mobile. Pengguna dapat membuat akun, mengelola profil, mencari dan menulis artikel, melihat agenda kegiatan, serta menerima notifikasi. Dalam ruang lingkup pengembangan, aplikasi juga dirancang untuk membantu pengguna menemukan lokasi fasilitas pengelolaan sampah dan mengenali jenis sampah melalui pemindaian kamera.
-Solusi ini mendukung tujuan pembangunan berkelanjutan (SDGs), khususnya SDG 4 (Pendidikan Berkualitas), SDG 11 (Kota dan Permukiman Berkelanjutan), dan SDG 12 (Konsumsi dan Produksi yang Bertanggung Jawab).
+## Solusi yang Ditawarkan
+
+KIYUTBIN merupakan aplikasi mobile yang dirancang untuk meningkatkan kepedulian masyarakat terhadap pengelolaan sampah melalui penyediaan informasi, edukasi, dan media berbagi dalam satu platform. Aplikasi ini menghadirkan beberapa fitur utama yang saling terintegrasi untuk membantu pengguna memperoleh informasi mengenai lingkungan dengan lebih mudah. Melalui fitur **Blog**, pengguna dapat membaca maupun membagikan artikel edukasi terkait pengelolaan sampah dan pelestarian lingkungan. Fitur **Post** menyediakan informasi mengenai penjualan barang bekas yang masih memiliki nilai guna sehingga dapat dimanfaatkan kembali oleh masyarakat. Selain itu, fitur **Event** memberikan informasi mengenai kegiatan atau acara bertema lingkungan yang dapat diikuti oleh pengguna.
+
+KIYUTBIN juga menyediakan fitur **Location** yang menampilkan lokasi tempat pembuangan atau pengelolaan sampah melalui peta berbasis OpenStreetMap sehingga membantu pengguna menemukan lokasi yang tersedia. Pada fitur **Scanner**, pengguna dapat mengakses kamera, flash, dan galeri sebagai langkah awal untuk mendukung proses pemindaian sampah pada pengembangan berikutnya. Untuk meningkatkan pengalaman pengguna, aplikasi dilengkapi dengan fitur **Registrasi**, **Login**, dan **Profile** sehingga pengguna dapat mengelola akun serta mengelola artikel yang telah dibuat. Seluruh fitur tersebut dirancang dengan antarmuka yang sederhana agar mudah digunakan oleh berbagai kalangan masyarakat. Dengan demikian, aplikasi ini diharapkan dapat menjadi solusi digital yang membantu masyarakat menemukan lokasi tempat pembuangan sampah, memahami cara pengelolaan sampah yang tepat, serta mendorong partisipasi aktif dalam mewujudkan lingkungan yang bersih, sehat, dan berkelanjutan.
 
 ## Tujuan
 
@@ -78,8 +78,7 @@ Solusi ini mendukung tujuan pembangunan berkelanjutan (SDGs), khususnya SDG 4 (P
 1. Kloning repositori ini lalu masuk ke folder proyek.
 
    ```bash
-   git clone <url-repositori>
-   cd kiyutbin_mobile
+   git clone <https://github.com/Kirana0219/PPB2026_Kelompok02_Kiyutbin.git>
    ```
 
 2. Instal dependensi Flutter.
@@ -98,6 +97,14 @@ Solusi ini mendukung tujuan pembangunan berkelanjutan (SDGs), khususnya SDG 4 (P
    ``` link
    https://stmikstikombali-my.sharepoint.com/:f:/g/personal/240040140_stikom-bali_ac_id/IgB8dMYhNR0RTYvmy6WbX10lAULgtWMSSuk-eQfao5Tr3pQ?e=EZ4reT
    ```
+
+### Kontribusi Anggota 
+
+| **NIM**       | **Anggota**                  | **Kontribusi**                                                                           |
+| ------------- | ---------------------------- | ---------------------------------------------------------------------------------------- |
+| **240040140** | Kirana (Kirana0219)          | Membuat database, mengembangkan fitur Blog, Profile, Notifikasi, dan Waste Scanner.      |
+| **240040135** | Putu Kartika (Putu-Kartika)  | Mengembangkan fitur Home, Post, dan Location.                                            |
+| **240040138** | Yuni Dwiyantini (Yuni18-git) | Mendesain antarmuka aplikasi (UI), membuat Splash Screen, dan mengembangkan fitur Event. |
 
 ## Struktur Proyek
 
