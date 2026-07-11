@@ -11,6 +11,7 @@
 
     <!-- Android 12 ke bawah -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     
     <application
         android:label="kiyutbin_mobile"
