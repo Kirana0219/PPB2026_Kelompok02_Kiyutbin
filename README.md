@@ -12,13 +12,12 @@ KIYUTBIN adalah aplikasi mobile berbasis Flutter untuk mendukung edukasi dan par
 
 ### Anggota Kelompok
 
-| Nama | Peran utama |
-| --- | --- |
-| Kirana | Autentikasi, profil, notifikasi, integrasi aplikasi |
-| Putu Kartika | Fitur blog dan pengalaman pengguna blog |
-| Yuni Dwiyantini | Splash screen, event, navigasi, dan aset aplikasi |
+| **NIM**       | **Anggota**                  | **Kontribusi**                                                                           |
+| ------------- | ---------------------------- | ---------------------------------------------------------------------------------------- |
+| **240040140** | Kirana (Kirana0219)          | Membuat database, mengembangkan fitur Blog, Profile, Notifikasi, dan Waste Scanner.      |
+| **240040135** | Putu Kartika (Putu-Kartika)  | Mengembangkan fitur Home, Post, dan Location.                                            |
+| **240040138** | Yuni Dwiyantini (Yuni18-git) | Mendesain antarmuka aplikasi (UI), membuat Splash Screen, dan mengembangkan fitur Event. |
 
-> Tambahkan NIM atau kelas masing-masing anggota pada tabel ini bila diperlukan untuk pengumpulan tugas.
 
 ## Deskripsi
 
@@ -38,7 +37,6 @@ Permasalahan yang diangkat dalam pengembangan KIYUTBIN meliputi:
 ## Solusi
 
 KIYUTBIN menyatukan edukasi, informasi kegiatan, dan interaksi komunitas dalam satu aplikasi mobile. Pengguna dapat membuat akun, mengelola profil, mencari dan menulis artikel, melihat agenda kegiatan, serta menerima notifikasi. Dalam ruang lingkup pengembangan, aplikasi juga dirancang untuk membantu pengguna menemukan lokasi fasilitas pengelolaan sampah dan mengenali jenis sampah melalui pemindaian kamera.
-
 Solusi ini mendukung tujuan pembangunan berkelanjutan (SDGs), khususnya SDG 4 (Pendidikan Berkualitas), SDG 11 (Kota dan Permukiman Berkelanjutan), dan SDG 12 (Konsumsi dan Produksi yang Bertanggung Jawab).
 
 ## Tujuan
@@ -49,25 +47,23 @@ Solusi ini mendukung tujuan pembangunan berkelanjutan (SDGs), khususnya SDG 4 (P
 
 ## Fitur
 
-| Fitur | Deskripsi | Status pada kode saat ini |
-| --- | --- | --- |
-| Registrasi dan login | Pendaftaran, masuk, keluar, dan pemulihan kata sandi melalui Supabase Authentication. | Tersedia |
-| Profil pengguna | Melihat dan memperbarui nama, email, nomor telepon, serta foto profil. | Tersedia |
-| Blog edukasi | Daftar artikel, artikel tren, detail, pencarian, kategori, dan _pull-to-refresh_. | Tersedia |
-| Blog pribadi | Membuat, mengubah, dan menghapus artikel beserta gambar sampul. | Tersedia |
-| Event | Kalender serta informasi kegiatan terdaftar, hari ini, dan kegiatan lainnya. | Tersedia (data tampilan) |
-| Notifikasi | Melihat, menandai sudah dibaca, menghapus satu, atau menghapus semua notifikasi. | Tersedia |
-| Waste Scanner | Pratinjau kamera, flash, ambil gambar, dan pilih gambar dari galeri. | Tersedia sebagai kamera; klasifikasi sampah belum diimplementasikan |
-| Location | Peta lokasi tempat pembuangan sampah terdekat berbasis OpenStreetMap. | Direncanakan; belum ditemukan implementasinya pada kode |
-| Post komunitas | Wadah berbagi informasi, tips, atau barang yang masih layak digunakan. | Modul awal tersedia; belum terhubung ke navigasi utama |
+| **Fitur**                | **Deskripsi**                                                                                                                                              |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Registrasi dan Login** | Registrasi akun baru, login, logout, dan autentikasi pengguna menggunakan Supabase Authentication.                                                         |
+| **Home**                 | Menampilkan halaman utama aplikasi yang menyediakan akses ke seluruh fitur utama KIYUTBIN.                                                                 |
+| **Profil Pengguna**      | Melihat dan memperbarui informasi profil pengguna seperti nama, nomor telepon, foto profil, serta menampilkan daftar blog yang telah dibuat oleh pengguna. |
+| **Blog**                 | Menampilkan artikel edukasi lingkungan, melihat detail artikel, serta mengelola artikel melalui fitur tambah, ubah, dan hapus (CRUD).                      |
+| **Post**                 | Menampilkan daftar informasi penjualan sampah serta melihat detail informasi dari setiap postingan.                                                        |
+| **Event**                | Menampilkan daftar kegiatan atau acara yang berkaitan dengan lingkungan beserta informasi setiap kegiatan.                                                 |
+| **Scanner**        | Menampilkan pratinjau kamera, mengaktifkan atau menonaktifkan flash, serta memilih gambar dari galeri perangkat untuk proses pemindaian.                   |
+| **Location**             | Menampilkan lokasi tempat pembuangan sam                                                                                                                   |
 
-## Teknologi
 
-- [Flutter](https://flutter.dev/) dan Dart
-- [Supabase](https://supabase.com/) - Authentication, PostgreSQL Database, dan Storage
-- `supabase_flutter` dan `flutter_dotenv`
-- `camera`, `image_picker`, dan `permission_handler`
-- `provider`, `google_fonts`, `flutter_svg`, `iconsax_flutter`, dan `intl`
+## Teknologi Yang Digunakan
+
+- Flutter
+- Supabase
+
 
 ## Cara Instalasi
 
@@ -98,56 +94,81 @@ Solusi ini mendukung tujuan pembangunan berkelanjutan (SDGs), khususnya SDG 4 (P
    SUPABASE_URL=https://<project-ref>.supabase.co
    SUPABASE_PUBLISHABLE_KEY=<supabase-publishable-key>
    ```
-
-4. Terapkan migrasi pada folder `supabase/migrations/` ke proyek Supabase yang digunakan, termasuk konfigurasi sinkronisasi profil dan bucket `profile-photos`.
-
-5. Pastikan izin kamera dan galeri diizinkan pada perangkat, lalu jalankan aplikasi.
-
-   ```bash
-   flutter run
+4. Dapat menginstall dan menggunakan APK dibawah ini:
+   ``` link
+   https://stmikstikombali-my.sharepoint.com/:f:/g/personal/240040140_stikom-bali_ac_id/IgB8dMYhNR0RTYvmy6WbX10lAULgtWMSSuk-eQfao5Tr3pQ?e=EZ4reT
    ```
-
-## Pembagian Tugas
-
-| Anggota | Kontribusi |
-| --- | --- |
-| Kirana |. |
-| Putu Kartika | . |
-| Yuni Dwiyantini | . |
 
 ## Struktur Proyek
 
 KIYUTBIN menggunakan **feature-based architecture**. Artinya, kode dikelompokkan berdasarkan fitur atau domain aplikasi, bukan hanya berdasarkan jenis file. Setiap fitur dapat memiliki _screen_, _service_, _model_, dan _widget_ sendiri sehingga lebih mudah dikembangkan dan dipelihara.
 
 ```text
-lib/
-|-- core/
-|   |-- config/            # Konfigurasi environment dan koneksi database
-|   |-- constants/         # Konstanta aplikasi
-|   |-- layout/widgets/    # Komponen layout bersama, seperti header dan bottom navigation
-|   |-- routes/            # Konfigurasi rute aplikasi
-|   |-- theme/             # Warna, tema, dan gaya teks
-|   `-- utils/             # Utilitas dan validasi
-|
-|-- features/
-|   |-- auth/              # Autentikasi dan profil pengguna
-|   |-- blog/              # Artikel edukasi dan manajemen blog pribadi
-|   |-- events/            # Informasi dan tampilan kegiatan lingkungan
-|   |-- home/              # Halaman utama
-|   |-- notification/      # Notifikasi pengguna
-|   |-- post/              # Modul posting komunitas
-|   |-- qr_scanner/        # Kamera dan antarmuka pemindaian
-|   `-- splash/            # Splash screen dan auth gate
-|
-`-- main.dart              # Titik awal aplikasi
-
-assets/
-|-- icons/                 # Ikon aplikasi
-`-- images/                # Gambar dan aset merek
-
-supabase/
-`-- migrations/            # Migrasi database dan storage Supabase
-
-test/                      # Pengujian widget
-android/                   # Konfigurasi platform Android
+KIYUTBIN_MOBILE
+│
+├── android/
+├── assets/
+├── lib/
+│   │
+│   ├── core/
+│   │   ├── config/
+│   │   ├── constants/
+│   │   ├── layout/
+│   │   ├── routes/
+│   │   ├── theme/
+│   │   └── utils/
+│   │
+│   ├── features/
+│   │   ├── auth/
+│   │   │   ├── models/
+│   │   │   ├── screen/
+│   │   │   ├── services/
+│   │   │   └── widgets/
+│   │   │
+│   │   ├── blog/
+│   │   │   ├── models/
+│   │   │   ├── screen/
+│   │   │   ├── services/
+│   │   │   └── widgets/
+│   │   │
+│   │   ├── events/
+│   │   │   ├── models/
+│   │   │   ├── screens/
+│   │   │   ├── services/
+│   │   │   └── widgets/
+│   │   │
+│   │   ├── home/
+│   │   │   ├── screen/
+│   │   │   ├── services/
+│   │   │   └── widgets/
+│   │   │
+│   │   ├── location/
+│   │   │   └── screen/
+│   │   │
+│   │   ├── notification/
+│   │   │   ├── models/
+│   │   │   ├── screen/
+│   │   │   ├── services/
+│   │   │   └── widgets/
+│   │   │
+│   │   ├── post/
+│   │   │   ├── model/
+│   │   │   ├── screen/
+│   │   │   ├── services/
+│   │   │   └── widgets/
+│   │   │
+│   │   ├── qr_scanner/
+│   │   │   ├── screen/
+│   │   │   ├── services/
+│   │   │   └── widgets/
+│   │   │
+│   │   └── splash/
+│   │       └── screen/
+│   │
+│   └── main.dart
+│
+├── supabase/
+│   └── migrations/
+│
+└── README.md
 ```
