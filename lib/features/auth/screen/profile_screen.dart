@@ -77,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       await _authService.signOut();
       if (!mounted) return;
-      Navigator.pushNamedAndRemoveUntil(context, AppRouter.login, (_) => false);
+      Navigator.pushNamedAndRemoveUntil(context, AppRouter.home, (_) => false);
     } catch (error) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -92,6 +92,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     switch (index) {
       case 0:
         Navigator.pushNamedAndRemoveUntil(context, AppRouter.home, (_) => false);
+        break;
+      case 1:
+        Navigator.pushNamed(context, AppRouter.events);
         break;
       case 2:
         Navigator.pushNamed(context, AppRouter.scanner);
